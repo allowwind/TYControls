@@ -1,0 +1,665 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:TYControls"
+    xmlns:converters="clr-namespace:TYControls.Converters">
+
+    <converters:NotNullToVisibilityConverter x:Key="notNullToVisibilityConverter" NullValue="Collapsed" />
+
+    <Style x:Key="ButtonFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle
+                        Margin="2"
+                        SnapsToDevicePixels="true"
+                        Stroke="Black"
+                        StrokeDashArray="1 2"
+                        StrokeThickness="1" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="WindowButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{TemplateBinding Foreground}"
+                            BorderThickness="1"
+                            Opacity="0.25" />
+                        <Border
+                            Padding="{TemplateBinding Padding}"
+                            VerticalAlignment="Stretch"
+                            Background="{TemplateBinding Background}">
+                            <AdornerDecorator>
+                                <ContentPresenter
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            </AdornerDecorator>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="WindowMinimizeButtonStyle"
+        BasedOn="{StaticResource WindowButtonStyle}"
+        TargetType="{x:Type Button}">
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="NoResize">
+                <Setter Property="Visibility" Value="Collapsed" />
+                <Setter Property="IsEnabled" Value="False" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="CanMinimize">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="IsEnabled" Value="True" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="CanResize">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="IsEnabled" Value="True" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="CanResizeWithGrip">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="IsEnabled" Value="True" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="WindowMaximizeRestoreButtonStyle"
+        BasedOn="{StaticResource WindowButtonStyle}"
+        TargetType="{x:Type Button}">
+
+        <Setter Property="Margin" Value="1,8,1,8" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="NoResize">
+                <Setter Property="Visibility" Value="Collapsed" />
+                <Setter Property="IsEnabled" Value="False" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="CanMinimize">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="IsEnabled" Value="False" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="CanResize">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="IsEnabled" Value="True" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="CanResizeWithGrip">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="IsEnabled" Value="True" />
+            </DataTrigger>
+
+        </Style.Triggers>
+    </Style>
+
+
+    <Style
+        x:Key="WindowMaximizeButtonStyle"
+        BasedOn="{StaticResource WindowButtonStyle}"
+        TargetType="{x:Type Button}">
+        <Setter Property="Margin" Value="1,8,1,8" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="NoResize">
+                <Setter Property="Visibility" Value="Collapsed" />
+                <Setter Property="IsEnabled" Value="False" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="CanMinimize">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="IsEnabled" Value="False" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="CanResize">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="IsEnabled" Value="True" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" Value="CanResizeWithGrip">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="IsEnabled" Value="True" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
+                <Setter Property="ToolTip" Value="最大化" />
+                <Setter Property="Content">
+                    <Setter.Value>
+
+                        <Path
+                            Width="12"
+                            Height="12"
+                            Margin="0,0,0,0"
+                            Data="M11.269995,17.434998L14.276008,20.438995 7.338993,27.375992 11.959997,32 0,32 0,20.039001 4.3329796,24.371994z M19.350991,0L31.307998,0 31.307998,11.960999 26.975995,7.6279907 20.039988,14.565002 17.038003,11.561005 23.975018,4.6239929z"
+                            Fill="#747678"
+                            RenderTransformOrigin="0.5,0.5"
+                            Stretch="Uniform" />
+
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Maximized">
+                <Setter Property="ToolTip" Value="恢复" />
+                <Setter Property="Content">
+                    <Setter.Value>
+
+                        <Path
+                            Width="12"
+                            Height="12"
+                            Margin="0,0,0,0"
+                            Data="M2.0930013,18.840004L12.898998,18.840004 12.898998,29.648003 8.982999,25.732002 2.7149953,32 0,29.285004 6.2700021,23.016998z M27.713003,0L30.428,2.7150002 24.157982,8.9830017 28.334982,13.16 17.529993,13.16 17.529993,2.3520012 21.445,6.2680016z"
+                            Fill="#747678"
+                            RenderTransformOrigin="0.5,0.5"
+                            Stretch="Uniform" />
+
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style
+        x:Key="WindowCloseButtonStyle"
+        BasedOn="{StaticResource WindowButtonStyle}"
+        TargetType="{x:Type Button}">
+        <Setter Property="Visibility" Value="Visible" />
+        <Setter Property="IsEnabled" Value="True" />
+    </Style>
+
+    <Style x:Key="WindowStyle" TargetType="{x:Type controls:TYWindow}">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="TitleBarBackground" Value="#EEEEF2" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="TitleBarForeground" Value="Black" />
+        <Setter Property="TitleBarHeight" Value="32" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="MinWidth" Value="128" />
+        <Setter Property="MinHeight" Value="128" />
+        <Setter Property="WindowState" Value="Normal" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:TYWindow}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="OpacityInStoryboard">
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="0.75"
+                                To="1"
+                                Duration="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                        <Storyboard x:Key="OpacityOutStoryboard">
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="1"
+                                To="0.75"
+                                Duration="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Border>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
+                                        <Setter Property="Padding" Value="0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Maximized">
+                                        <Setter Property="Padding" Value="8" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
+                                            <Setter Property="BorderThickness" Value="{Binding Path=BorderThickness, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Maximized">
+                                            <Setter Property="BorderThickness" Value="0" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="100*" />
+                                </Grid.RowDefinitions>
+                                <Grid
+                                    Height="{TemplateBinding TitleBarHeight}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Background="{TemplateBinding TitleBarBackground}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Image
+                                            Width="24"
+                                            Height="24"
+                                            Margin="18,0,8,0"
+                                            Source="{TemplateBinding Icon}"
+                                            Visibility="{TemplateBinding Property=Icon,
+                                                                         Converter={StaticResource notNullToVisibilityConverter}}" />
+                                    </Grid>
+                                    <Grid
+                                        Grid.Column="1"
+                                        Height="{TemplateBinding TitleBarHeight}"
+                                        HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="18,0,18,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            Foreground="{TemplateBinding TitleBarForeground}"
+                                            Text="{TemplateBinding Title}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding Path=FadeContentIfInactive, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                                                                <Condition Binding="{Binding Path=IsActive, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                                                            </MultiDataTrigger.Conditions>
+                                                            <MultiDataTrigger.EnterActions>
+                                                                <BeginStoryboard Storyboard="{StaticResource OpacityInStoryboard}" />
+                                                            </MultiDataTrigger.EnterActions>
+                                                            <MultiDataTrigger.ExitActions>
+                                                                <BeginStoryboard Storyboard="{StaticResource OpacityOutStoryboard}" />
+                                                            </MultiDataTrigger.ExitActions>
+                                                        </MultiDataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+
+                                    <ContentControl
+                                        Grid.Column="2"
+                                        Content="{TemplateBinding TitleLeftContent}"
+                                        WindowChrome.IsHitTestVisibleInChrome="true" />
+                                    <ContentControl
+                                        Grid.Column="4"
+                                        Content="{TemplateBinding TitleRightContent}"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <StackPanel
+                                        Grid.Column="5"
+                                        Margin="0,0,10,0"
+                                        VerticalAlignment="Stretch"
+                                        Orientation="Horizontal">
+                                        <Button
+                                            x:Name="minimizeButton"
+                                            Style="{StaticResource WindowMinimizeButtonStyle}"
+                                            ToolTip="最小化">
+
+                                            <Viewbox Width="12" Height="12">
+                                                <Path
+                                                    Margin="0,0,0,0"
+                                                    Data="M0,0L32,0 32,5.3 0,5.3z"
+                                                    Fill="#686A6C"
+                                                    RenderTransformOrigin="0.5,0.5"
+                                                    Stretch="Uniform" />
+                                            </Viewbox>
+                                        </Button>
+                                        <Button x:Name="maximizeRestoreButton" Style="{StaticResource WindowMaximizeRestoreButtonStyle}">
+                                            <Grid>
+                                                <Viewbox
+                                                    x:Name="ViewMax"
+                                                    Width="12"
+                                                    Height="12">
+                                                    <Path
+                                                        Data="M11.269995,17.434998L14.276008,20.438995 7.338993,27.375992 11.959997,32 0,32 0,20.039001 4.3329796,24.371994z M19.350991,0L31.307998,0 31.307998,11.960999 26.975995,7.6279907 20.039988,14.565002 17.038003,11.561005 23.975018,4.6239929z"
+                                                        Fill="#826868"
+                                                        RenderTransformOrigin="0.5,0.5"
+                                                        Stretch="Uniform" />
+                                                </Viewbox>
+
+                                                <Viewbox
+                                                    x:Name="ViewRestore"
+                                                    Width="12"
+                                                    Height="12"
+                                                    Visibility="Collapsed">
+                                                    <Path
+                                                        Data="M2.0930013,18.840004L12.898998,18.840004 12.898998,29.648003 8.982999,25.732002 2.7149953,32 0,29.285004 6.2700021,23.016998z M27.713003,0L30.428,2.7150002 24.157982,8.9830017 28.334982,13.16 17.529993,13.16 17.529993,2.3520012 21.445,6.2680016z"
+                                                        Fill="#826868"
+                                                        RenderTransformOrigin="0.5,0.5"
+                                                        Stretch="Uniform" />
+                                                </Viewbox>
+                                            </Grid>
+                                        </Button>
+                                        <Button
+                                            x:Name="closeButton"
+                                            Style="{StaticResource WindowCloseButtonStyle}"
+                                            ToolTip="关闭">
+                                            <Viewbox Width="9.5" Height="9.5">
+                                                <Path
+                                                    Data="M1.0002288,0C1.2559776,2.3003668E-07,1.5117262,0.097747288,1.7072186,0.29324149L16,14.586132 30.29278,0.29324149C30.683766,-0.097746828 31.315775,-0.097746828 31.706761,0.29324149 32.097748,0.68424486 32.097748,1.3162439 31.706761,1.707232L17.413979,16.000122 31.706761,30.293013C32.097748,30.684015 32.097748,31.316015 31.706761,31.707003 31.511757,31.902008 31.25578,32 30.999802,32 30.743763,32 30.487786,31.902008 30.29278,31.707003L16,17.414112 1.7072186,31.707003C1.5122145,31.902008 1.2562368,32 1.0002593,32 0.74422078,32 0.48824324,31.902008 0.29323908,31.707003 -0.097746359,31.316015 -0.097746359,30.684015 0.29323908,30.293013L14.58602,16.000122 0.29323908,1.707232C-0.097746359,1.3162439 -0.097746359,0.68424486 0.29323908,0.29324149 0.48873149,0.097747288 0.74448018,2.3003668E-07 1.0002288,0z"
+                                                    Fill="#826868"
+                                                    RenderTransformOrigin="0.5,0.5"
+                                                    Stretch="Uniform" />
+                                            </Viewbox>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                                <!--  window content  -->
+                                <Border
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="3"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Background="{TemplateBinding Background}">
+                                    <AdornerDecorator>
+                                        <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}">
+                                            <ContentPresenter.Style>
+                                                <Style TargetType="ContentPresenter">
+                                                    <Style.Triggers>
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding Path=FadeContentIfInactive, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                                                                <Condition Binding="{Binding Path=IsActive, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                                                            </MultiDataTrigger.Conditions>
+                                                            <MultiDataTrigger.EnterActions>
+                                                                <BeginStoryboard Storyboard="{StaticResource OpacityInStoryboard}" />
+                                                            </MultiDataTrigger.EnterActions>
+                                                            <MultiDataTrigger.ExitActions>
+                                                                <BeginStoryboard Storyboard="{StaticResource OpacityOutStoryboard}" />
+                                                            </MultiDataTrigger.ExitActions>
+                                                        </MultiDataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ContentPresenter.Style>
+                                        </ContentPresenter>
+                                    </AdornerDecorator>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowState" Value="Normal">
+                            <Setter TargetName="ViewMax" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ViewRestore" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="maximizeRestoreButton" Property="ToolTip" Value="最大化" />
+                        </Trigger>
+
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="ViewMax" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="maximizeRestoreButton" Property="ToolTip" Value="窗口化" />
+                            <Setter TargetName="ViewRestore" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="WindowState" Value="Normal">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome
+                            CaptionHeight="{Binding Path=TitleBarHeight, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}"
+                            ResizeBorderThickness="4"
+                            UseAeroCaptionButtons="False" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="0" />
+            </Trigger>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome
+                            CaptionHeight="{Binding Path=TitleBarHeight, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}"
+                            ResizeBorderThickness="0"
+                            UseAeroCaptionButtons="False" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="WindowBusyStyle" TargetType="{x:Type controls:TYWindow}">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="TitleBarBackground" Value="#EEEEF2" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="TitleBarForeground" Value="Black" />
+        <Setter Property="TitleBarHeight" Value="32" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="MinWidth" Value="128" />
+        <Setter Property="MinHeight" Value="128" />
+        <Setter Property="WindowState" Value="Normal" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:TYWindow}">
+                    <Border>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
+                                        <Setter Property="Padding" Value="0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Maximized">
+                                        <Setter Property="Padding" Value="8" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
+                                            <Setter Property="BorderThickness" Value="{Binding Path=BorderThickness, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Maximized">
+                                            <Setter Property="BorderThickness" Value="0" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="100*" />
+                                </Grid.RowDefinitions>
+                                <Grid
+                                    Height="{TemplateBinding TitleBarHeight}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Background="{TemplateBinding TitleBarBackground}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Image
+                                            Width="24"
+                                            Height="24"
+                                            Margin="18,0,8,0"
+                                            Source="{TemplateBinding Icon}"
+                                            Visibility="{TemplateBinding Property=Icon,
+                                                                         Converter={StaticResource notNullToVisibilityConverter}}" />
+                                    </Grid>
+                                    <Grid Grid.Column="1" HorizontalAlignment="Left">
+                                        <TextBlock
+                                            Margin="18,0,18,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            Foreground="{TemplateBinding TitleBarForeground}"
+                                            Text="{TemplateBinding Title}" />
+                                    </Grid>
+
+                                    <ContentControl
+                                        Grid.Column="2"
+                                        Content="{TemplateBinding TitleLeftContent}"
+                                        WindowChrome.IsHitTestVisibleInChrome="true" />
+                                    <ContentControl
+                                        Grid.Column="4"
+                                        Content="{TemplateBinding TitleRightContent}"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <StackPanel
+                                        Grid.Column="5"
+                                        Margin="0,0,10,0"
+                                        VerticalAlignment="Stretch"
+                                        Orientation="Horizontal">
+                                        <Button
+                                            x:Name="minimizeButton"
+                                            Style="{StaticResource WindowMinimizeButtonStyle}"
+                                            ToolTip="最小化">
+
+                                            <Viewbox Width="12" Height="12">
+                                                <Path
+                                                    Margin="0,0,0,0"
+                                                    Data="M0,0L32,0 32,5.3 0,5.3z"
+                                                    Fill="#686A6C"
+                                                    RenderTransformOrigin="0.5,0.5"
+                                                    Stretch="Uniform" />
+                                            </Viewbox>
+                                        </Button>
+                                        <Button x:Name="maximizeRestoreButton" Style="{StaticResource WindowMaximizeRestoreButtonStyle}">
+                                            <Grid>
+                                                <Viewbox
+                                                    x:Name="ViewMax"
+                                                    Width="12"
+                                                    Height="12">
+                                                    <Path
+                                                        Data="M11.269995,17.434998L14.276008,20.438995 7.338993,27.375992 11.959997,32 0,32 0,20.039001 4.3329796,24.371994z M19.350991,0L31.307998,0 31.307998,11.960999 26.975995,7.6279907 20.039988,14.565002 17.038003,11.561005 23.975018,4.6239929z"
+                                                        Fill="#826868"
+                                                        RenderTransformOrigin="0.5,0.5"
+                                                        Stretch="Uniform" />
+                                                </Viewbox>
+
+                                                <Viewbox
+                                                    x:Name="ViewRestore"
+                                                    Width="12"
+                                                    Height="12"
+                                                    Visibility="Collapsed">
+                                                    <Path
+                                                        Data="M2.0930013,18.840004L12.898998,18.840004 12.898998,29.648003 8.982999,25.732002 2.7149953,32 0,29.285004 6.2700021,23.016998z M27.713003,0L30.428,2.7150002 24.157982,8.9830017 28.334982,13.16 17.529993,13.16 17.529993,2.3520012 21.445,6.2680016z"
+                                                        Fill="#826868"
+                                                        RenderTransformOrigin="0.5,0.5"
+                                                        Stretch="Uniform" />
+                                                </Viewbox>
+                                            </Grid>
+                                        </Button>
+                                        <Button
+                                            x:Name="closeButton"
+                                            Style="{StaticResource WindowCloseButtonStyle}"
+                                            ToolTip="关闭">
+
+                                            <Viewbox Width="9.5" Height="9.5">
+                                                <Path
+                                                    Data="M1.0002288,0C1.2559776,2.3003668E-07,1.5117262,0.097747288,1.7072186,0.29324149L16,14.586132 30.29278,0.29324149C30.683766,-0.097746828 31.315775,-0.097746828 31.706761,0.29324149 32.097748,0.68424486 32.097748,1.3162439 31.706761,1.707232L17.413979,16.000122 31.706761,30.293013C32.097748,30.684015 32.097748,31.316015 31.706761,31.707003 31.511757,31.902008 31.25578,32 30.999802,32 30.743763,32 30.487786,31.902008 30.29278,31.707003L16,17.414112 1.7072186,31.707003C1.5122145,31.902008 1.2562368,32 1.0002593,32 0.74422078,32 0.48824324,31.902008 0.29323908,31.707003 -0.097746359,31.316015 -0.097746359,30.684015 0.29323908,30.293013L14.58602,16.000122 0.29323908,1.707232C-0.097746359,1.3162439 -0.097746359,0.68424486 0.29323908,0.29324149 0.48873149,0.097747288 0.74448018,2.3003668E-07 1.0002288,0z"
+                                                    Fill="#826868"
+                                                    RenderTransformOrigin="0.5,0.5"
+                                                    Stretch="Uniform" />
+                                            </Viewbox>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                                <!--  window content  -->
+                                <Border
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="3"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Background="{TemplateBinding Background}">
+
+                                    <AdornerDecorator>
+                                        <controls:TYBusy Title="{TemplateBinding Busy}" IsBusy="{TemplateBinding IsBusy}">
+                                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+                                        </controls:TYBusy>
+                                    </AdornerDecorator>
+
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowState" Value="Normal">
+                            <Setter TargetName="ViewMax" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ViewRestore" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="maximizeRestoreButton" Property="ToolTip" Value="最大化" />
+                        </Trigger>
+
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="ViewMax" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="maximizeRestoreButton" Property="ToolTip" Value="窗口化" />
+                            <Setter TargetName="ViewRestore" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="WindowState" Value="Normal">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome
+                            CaptionHeight="{Binding Path=TitleBarHeight, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}"
+                            ResizeBorderThickness="4"
+                            UseAeroCaptionButtons="False" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="0" />
+            </Trigger>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome
+                            CaptionHeight="{Binding Path=TitleBarHeight, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}"
+                            ResizeBorderThickness="0"
+                            UseAeroCaptionButtons="False" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

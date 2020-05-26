@@ -1,0 +1,14 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TYControls">
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <!--  material design styles  -->
+        <ResourceDictionary Source="pack://application:,,,/TYControls;component/Themes/TYBusyStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TYControls;component/Themes/TYWindowStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TYControls;component/Themes/TYPagerControlStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

@@ -3,3 +3,8 @@
 ################################################################################
 
 /TYWIndow.Demo/obj/Debug
+/TYControls/obj/Debug
+/.vs/TYControls/v15/Server/sqlite3
+/TYControls/bin/Debug
+/.vs/TYControls/v15
+/TYWIndow.Demo/bin/Debug
