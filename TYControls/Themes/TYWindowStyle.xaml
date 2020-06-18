@@ -662,4 +662,63 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+
+    <Style x:Key="WindowEmpty" TargetType="{x:Type controls:TYWindow}">
+
+        <Setter Property="TitleBarBackground" Value="#EEEEF2" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="TitleBarForeground" Value="Black" />
+        <Setter Property="TitleBarHeight" Value="32" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="MinWidth" Value="128" />
+        <Setter Property="MinHeight" Value="128" />
+        <Setter Property="WindowState" Value="Normal" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:TYWindow}">
+
+                    <Border
+                        Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="{TemplateBinding Background}">
+
+                        <AdornerDecorator>
+                            <controls:TYBusy Title="{TemplateBinding Busy}" IsBusy="{TemplateBinding IsBusy}">
+                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            </controls:TYBusy>
+                        </AdornerDecorator>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="WindowState" Value="Normal">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome
+                            CaptionHeight="{Binding Path=TitleBarHeight, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}"
+                            ResizeBorderThickness="4"
+                            UseAeroCaptionButtons="False" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="0" />
+            </Trigger>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome
+                            CaptionHeight="{Binding Path=TitleBarHeight, RelativeSource={RelativeSource AncestorType={x:Type controls:TYWindow}}}"
+                            ResizeBorderThickness="0"
+                            UseAeroCaptionButtons="False" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

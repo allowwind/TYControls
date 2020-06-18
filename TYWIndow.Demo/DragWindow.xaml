@@ -1,0 +1,22 @@
+﻿<Window
+    x:Class="TYWIndow.Demo.DragWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TYWIndow.Demo"
+    xmlns:lsbCtrl="clr-namespace:TYControls;assembly=TYControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="DragWindow"
+    Width="800"
+    Height="450"
+    AllowsTransparency="True"
+    Background="#11BBBBBB"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Canvas
+        x:Name="rootCanvas"
+        Background="#00AAAAAA"
+        MouseLeftButtonUp="RootCanvas_MouseLeftButtonUp"
+        MouseMove="RootCanvas_MouseMove" />
+</Window>

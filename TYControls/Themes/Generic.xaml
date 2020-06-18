@@ -9,6 +9,8 @@
         <ResourceDictionary Source="pack://application:,,,/TYControls;component/Themes/TYBusyStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/TYControls;component/Themes/TYWindowStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/TYControls;component/Themes/TYPagerControlStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TYControls;component/Themes/TYRunningBlock.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TYControls;component/Themes/TYMarqueeControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

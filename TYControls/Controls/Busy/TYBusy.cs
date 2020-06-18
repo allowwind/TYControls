@@ -3,6 +3,7 @@ using System.Windows.Controls;
 
 namespace TYControls
 {
+
     public class TYBusy : ContentControl
     {
         #region Dependency Properties

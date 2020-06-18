@@ -16,10 +16,90 @@
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <tyCtrl:TYPageControl
-            x:Name="pager"
-            Grid.Row="1"
-            Height="30"
-            CurrentIndexChanged="Pager_CurrentIndexChanged" />
+
+        <!--<tyCtrl:TYRunningBlock AutoRun="True">
+            <StackPanel Orientation="Horizontal">
+
+                <Border
+                    Width="50"
+                    Height="50"
+                    Background="LightBlue" />
+
+
+                <Border
+                    Width="50"
+                    Height="50"
+                    Background="LightGray"
+                    MouseLeftButtonUp="Border_MouseLeftButtonUp"
+                    PreviewMouseLeftButtonDown="btn_PreviewMouseDown" />
+
+            </StackPanel>
+        </tyCtrl:TYRunningBlock>-->
+
+
+        <!--<StackPanel x:Name="stack" Orientation="Horizontal" >
+            <StackPanel.Resources>
+                <local:NegatingConverter x:Key="NegatingConverter" />
+                <Storyboard x:Key="slide">
+                    <DoubleAnimation
+                        RepeatBehavior="Forever"
+                        Storyboard.TargetName="transferCurreny"
+                        Storyboard.TargetProperty="X"
+                        From="0"
+                        To="{Binding Width, ElementName=canvas, Converter={StaticResource NegatingConverter}}"
+                        Duration="00:00:10" />
+                </Storyboard>
+            </StackPanel.Resources>
+            <StackPanel.RenderTransform>
+                <TranslateTransform x:Name="transferCurreny" X="0" />
+            </StackPanel.RenderTransform>
+            <StackPanel.Triggers>
+                <EventTrigger RoutedEvent="StackPanel.Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource slide}" />
+                </EventTrigger>
+                <EventTrigger RoutedEvent="StackPanel.SizeChanged">
+                    <BeginStoryboard Storyboard="{StaticResource slide}" />
+                </EventTrigger>
+            </StackPanel.Triggers>
+            <Canvas x:Name="canvas" Width="{Binding ActualWidth, ElementName=stack}">
+                <TextBlock
+                    x:Name="txtKron"
+                    Canvas.Left="0"
+                    FontSize="25"
+                    Text="StackOverflow" />
+                <TextBlock
+                    Canvas.Left="{Binding Width, ElementName=canvas}"
+                    FontSize="25"
+                    Text="{Binding Text, ElementName=txtKron}" />
+            </Canvas>
+        </StackPanel>-->
+
+        <Grid>
+            <Canvas
+                Name="ViewingBox"
+                Height="35"
+                Margin="6,83,9,0"
+                VerticalAlignment="Top"
+                Background="YellowGreen">
+                <Label
+                    Name="BoxOne"
+                    Canvas.Left="263"
+                    Canvas.Top="-2"
+                    Height="49"
+                    FontSize="20">
+                    I need breakfast.
+                </Label>
+                <Label
+                    Name="BoxTwo"
+                    Canvas.Left="263"
+                    Canvas.Top="-2"
+                    Height="49"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    FontSize="20">
+                    You can have oranges and egg.
+                </Label>
+            </Canvas>
+        </Grid>
     </Grid>
 </tyCtrl:TYWindow>

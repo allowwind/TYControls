@@ -53,6 +53,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Layout\LightPanel.cs" />
+    <Compile Include="Controls\TYMarqueeControl.cs" />
     <Compile Include="Controls\TYPageControl.cs" />
     <Compile Include="Converters\CloneConverter.cs" />
     <Compile Include="Converters\NotNullToVisibilityConverter.cs" />
@@ -60,6 +62,10 @@
     <Compile Include="Controls\Busy\TYBusy.cs" />
     <Compile Include="Controls\Busy\TYIcon.cs" />
     <Compile Include="Controls\Windows\TYWindow.cs" />
+    <Page Include="Themes\TYMarqueeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\TYPagerControlStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
